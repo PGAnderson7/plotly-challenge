@@ -66,5 +66,26 @@ function Charts(Selection) {
         var otu_labels = SampleNo.otu_labels;
         var sample_values = SampleNo.sample_values;
 
-    }
-}
+        // grab top ten OTU in desending order
+        var toptenOTU = otu_ids.slice(0, 10).reverse();
+        var Count = toptenOTU.map(OTU => ("OTU " + OTU));
+
+        // Horiontal Bar Chart trace
+        var barData = [{
+            x: sample_values.slice(0, 10).reverse(),
+            y: Count,
+            text: otu_labels.reverse(),
+            type: "bar",
+            orientation: "h"
+            }
+        ];
+
+        var barLabeling = {
+            title: "<b>Top Ten Bacteria Cultures Found</b>",
+            xaxis: {title: 'Colony Count'}
+        };
+
+        Plotly.newPlot("bar", barData, barLabeling);
+
+    });
+};
