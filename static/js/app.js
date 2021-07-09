@@ -70,7 +70,7 @@ function Charts(Selection) {
         var toptenOTU = otu_ids.slice(0, 10).reverse();
         var Count = toptenOTU.map(OTU => ("OTU " + OTU));
 
-        // Horiontal Bar Chart trace
+        // Horiontal Bar Chart
         var barData = [{
             x: sample_values.slice(0, 10).reverse(),
             y: Count,
@@ -86,6 +86,26 @@ function Charts(Selection) {
         };
 
         Plotly.newPlot("bar", barData, barLabeling);
+
+        // Bubble Chart
+        var bubbleData = [{
+            x: otu_ids,
+            y: sample_values,
+            mode: 'markers',
+            text: otu_labels,
+            marker:{size: sample_values, color: otu_ids}
+            }
+        ];
+
+        var bubbleLabeling = {
+            title: { text: "<b>Bacteria Cultures Per Sample</b>"},
+            hovermode: "closest",
+            xaxis: {title: "OTU ID"},
+            yaxis: {title: "Coloony Count"},
+            automargin: true,
+        };
+
+        Plotly.newPlot("bubble", bubbleData, bubbleLabeling);
 
     });
 };
